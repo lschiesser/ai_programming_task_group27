@@ -37,19 +37,27 @@ class App(QWidget):
         layout.addWidget(button_quit, 5, 1)
 
     def execute(self):
-        print("Click")
+        """
+        Supposed to: pass on the value for algorithm_chosen, warehouse description
+        and order
+        At the time: only prints out Click and algorithm_chosen (integer)
+        """
+        print("Click" + str(self.algorithm_chosen))
 
     def quit(self):
         sys.exit()
 
     def on_button_clicked(self, id):
         """
+        Input:
+            self - object itself
+            id - id of the clicked button
         checks which of the radiobutton is checked and stores it in a variable
         """
         for button in self.buttongroup.buttons():
             if button is self.buttongroup.button(id):
-                algorithm_chosen = button.algorithm
-                print(algorithm_chosen)
+                self.algorithm_chosen = button.algorithm
+                print(self.algorithm_chosen)
 
 app = QApplication(sys.argv)
 screen = App()
