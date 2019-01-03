@@ -17,6 +17,30 @@ class App(QWidget):
         self.setLayout(layout)
 
         #create buttongroup to group radiobuttons together
+        label_warehouse = QLabel()
+        label_warehouse.setText("Pick data to set up warehouse")
+        layout.addWidget(label_warehouse, 0, 0)
+
+        button_warehouseFile = QPushButton("Choose warehouse file")
+        warehouseFile = button_warehouseFile.clicked.connect(self.pickWarehouseFile)
+        layout.addWidget(button_warehouseFile, 1, 1)
+
+        label_warehouseFile = QLabel()
+        label_warehouseFile.setText(warehouseFile)
+        layout.addWidget(label_warehouseFile, 1, 0)
+
+        label_order = QLabel()
+        label_order.setText("Pick order data")
+        layout.addWidget(label_order, 2, 0)
+
+        button_orderFile = QPushButton("Choose order file")
+        orderFile = button_orderFile.clicked.connect(self.pickWarehouseFile)
+        layout.addWidget(button_orderFile, 3, 1)
+
+        label_orderFile = QLabel()
+        label_orderFile.setText(orderFile)
+        layout.addWidget(label_orderFile, 3, 0)
+
         self.buttongroup = QButtonGroup()
         self.buttongroup.buttonClicked[int].connect(self.on_button_clicked)
 
@@ -26,15 +50,15 @@ class App(QWidget):
             radiobutton = QRadioButton(txt)
             radiobutton.algorithm = val
             self.buttongroup.addButton(radiobutton, val)
-            layout.addWidget(radiobutton)
+            layout.addWidget(radiobutton, 3 + val, 0)
 
         button_execute = QPushButton("Execute search")
         button_execute.clicked.connect(self.execute)
-        layout.addWidget(button_execute, 5, 0)
+        layout.addWidget(button_execute, 9, 0)
 
         button_quit = QPushButton("Quit")
         button_quit.clicked.connect(self.quit)
-        layout.addWidget(button_quit, 5, 1)
+        layout.addWidget(button_quit, 9, 1)
 
     def execute(self):
         """
@@ -58,6 +82,17 @@ class App(QWidget):
             if button is self.buttongroup.button(id):
                 self.algorithm_chosen = button.algorithm
                 print(self.algorithm_chosen)
+
+    def pickWarehouseFile(self):
+        return self.openFileNameDialog()
+
+    def openFileNameDialog(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+        if fileName:
+            print(fileName)
+            return fileName
 
 app = QApplication(sys.argv)
 screen = App()
