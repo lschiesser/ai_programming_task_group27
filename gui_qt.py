@@ -26,7 +26,7 @@ class App(QWidget):
         layout.addWidget(button_warehouseFile, 1, 1)
 
         label_warehouseFile = QLabel()
-        label_warehouseFile.setText(warehouseFile)
+        label_warehouseFile.setText("Please choose a button_orderFile")
         layout.addWidget(label_warehouseFile, 1, 0)
 
         label_order = QLabel()
@@ -38,7 +38,7 @@ class App(QWidget):
         layout.addWidget(button_orderFile, 3, 1)
 
         label_orderFile = QLabel()
-        label_orderFile.setText(orderFile)
+        label_orderFile.setText("Please choose a file")
         layout.addWidget(label_orderFile, 3, 0)
 
         self.buttongroup = QButtonGroup()
