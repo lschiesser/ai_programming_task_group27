@@ -26,7 +26,7 @@ class App(QWidget):
         layout.addWidget(button_warehouseFile, 1, 1)
 
         label_warehouseFile = QLabel()
-        label_warehouseFile.setText("Please choose a button_orderFile")
+        label_warehouseFile.setText(warehouseFile)
         layout.addWidget(label_warehouseFile, 1, 0)
 
         label_order = QLabel()
@@ -69,6 +69,9 @@ class App(QWidget):
         print("Click" + str(self.algorithm_chosen))
 
     def quit(self):
+        """
+        Quits the program
+        """
         sys.exit()
 
     def on_button_clicked(self, id):
@@ -93,6 +96,7 @@ class App(QWidget):
         if fileName:
             print(fileName)
             return fileName
+
 
 app = QApplication(sys.argv)
 screen = App()
