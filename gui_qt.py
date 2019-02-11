@@ -13,33 +13,33 @@ class App(QWidget):
         QWidget.__init__(self)
         self.setWindowTitle("Programming Task")
 
-        layout = QGridLayout()
-        self.setLayout(layout)
+        self.layout = QGridLayout()
+        self.setLayout(self.layout)
 
         #create buttongroup to group radiobuttons together
-        label_warehouse = QLabel()
-        label_warehouse.setText("Pick data to set up warehouse")
-        layout.addWidget(label_warehouse, 0, 0)
+        self.label_warehouse = QLabel()
+        self.label_warehouse.setText("Pick data to set up warehouse")
+        self.layout.addWidget(self.label_warehouse, 0, 0)
 
-        button_warehouseFile = QPushButton("Choose warehouse file")
-        warehouseFile = button_warehouseFile.clicked.connect(self.pickWarehouseFile)
-        layout.addWidget(button_warehouseFile, 1, 1)
+        self.button_warehouseFile = QPushButton("Choose warehouse file")
+        self.warehouseFile = self.button_warehouseFile.clicked.connect(self.pickWarehouseFile)
+        self.layout.addWidget(self.button_warehouseFile, 1, 1)
 
-        label_warehouseFile = QLabel()
-        label_warehouseFile.setText(warehouseFile)
-        layout.addWidget(label_warehouseFile, 1, 0)
+        self.label_warehouseFile = QLabel()
+        self.label_warehouseFile.setText(self.warehouseFile)
+        self.layout.addWidget(self.label_warehouseFile, 1, 0)
 
-        label_order = QLabel()
-        label_order.setText("Pick order data")
-        layout.addWidget(label_order, 2, 0)
+        self.label_order = QLabel()
+        self.label_order.setText("Pick order data")
+        self.layout.addWidget(self.label_order, 2, 0)
 
-        button_orderFile = QPushButton("Choose order file")
-        orderFile = button_orderFile.clicked.connect(self.pickWarehouseFile)
-        layout.addWidget(button_orderFile, 3, 1)
+        self.button_orderFile = QPushButton("Choose order file")
+        self.orderFile = self.button_orderFile.clicked.connect(self.pickWarehouseFile)
+        self.layout.addWidget(self.button_orderFile, 3, 1)
 
-        label_orderFile = QLabel()
-        label_orderFile.setText("Please choose a file")
-        layout.addWidget(label_orderFile, 3, 0)
+        self.label_orderFile = QLabel()
+        self.label_orderFile.setText("Please choose a file")
+        self.layout.addWidget(self.label_orderFile, 3, 0)
 
         self.buttongroup = QButtonGroup()
         self.buttongroup.buttonClicked[int].connect(self.on_button_clicked)
@@ -47,18 +47,22 @@ class App(QWidget):
         #create for every possible search algorithm a radiobutton and add it to
         #the created buttongroup
         for txt, val in self.algorithms:
-            radiobutton = QRadioButton(txt)
-            radiobutton.algorithm = val
-            self.buttongroup.addButton(radiobutton, val)
-            layout.addWidget(radiobutton, 3 + val, 0)
+            self.radiobutton = QRadioButton(txt)
+            self.radiobutton.algorithm = val
+            self.buttongroup.addButton(self.radiobutton, val)
+            self.layout.addWidget(self.radiobutton, 3 + val, 0)
 
-        button_execute = QPushButton("Execute search")
-        button_execute.clicked.connect(self.execute)
-        layout.addWidget(button_execute, 9, 0)
+        self.input_temp = QLineEdit()
+        self.input_temp.setPlaceholderText("Value for Temperature")
+        self.layout.addWidget(self.input_temp, 7, 1)
 
-        button_quit = QPushButton("Quit")
-        button_quit.clicked.connect(self.quit)
-        layout.addWidget(button_quit, 9, 1)
+        self.button_execute = QPushButton("Execute search")
+        self.button_execute.clicked.connect(self.execute)
+        self.layout.addWidget(self.button_execute, 9, 0)
+
+        self.button_quit = QPushButton("Quit")
+        self.button_quit.clicked.connect(self.quit)
+        self.layout.addWidget(self.button_quit, 9, 1)
 
     def execute(self):
         """
@@ -66,6 +70,9 @@ class App(QWidget):
         and order
         At the time: only prints out Click and algorithm_chosen (integer)
         """
+        temperature = self.input_temp.text()
+        if(temperature):
+            print(temperature)
         print("Click" + str(self.algorithm_chosen))
 
     def quit(self):
@@ -96,6 +103,7 @@ class App(QWidget):
         if fileName:
             print(fileName)
             return fileName
+
 
 
 app = QApplication(sys.argv)
