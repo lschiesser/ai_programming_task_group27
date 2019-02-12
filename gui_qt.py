@@ -1,6 +1,22 @@
 import sys
 from PyQt5.QtWidgets import * #this will be the GUI package on which the GUI for the project is built
 
+class ErrorMessage(QDialog):
+    def __init__(self):
+        super(ErrorMessage, self).__init__()
+        self.setWindowTitle("Error")
+
+        self.layout3 = QGridLayout()
+        self.setLayout(self.layout3)
+
+        self.label_error = QLabel()
+        self.label_error.setText("Error! Please enter a positive numerical value")
+        self.layout3.addWidget(self.label_error, 0, 0)
+
+        self.button_box = QDialogButtonBox(QDialogButtonBox.Ok)
+        self.button_box.accepted.connect(self.accept)
+        self.layout3.addWidget(self.button_box, 1, 0)
+
 class App(QWidget): # creates the containing interface with possible options for the app user
     algorithms = [ #names the variable ("algorithm") that indicates type of search used later in code in suceeding methods
     ("Hill Climbing", 1),
@@ -54,20 +70,7 @@ class App(QWidget): # creates the containing interface with possible options for
             self.buttongroup.addButton(self.radiobutton, val)
             self.layout.addWidget(self.radiobutton, 3 + val, 0)
 
-        #input number of parallel hill Climbing searches to run
-        self.input_parallel = QLineEdit()
-        self.input_parallel.setPlaceholderText("Number of Parallel Searches to Run")
-        self.layout.addWidget(self.input_parallel, 6, 1)
 
-        #for Simulated Annealing option, allows user input for temperatures in process
-        self.input_temp = QLineEdit()
-        self.input_temp.setPlaceholderText("Value for Temperature")
-        self.layout.addWidget(self.input_temp, 7, 1)
-
-        #for Local Beam Search, allows user input to specify number of steps in process
-        self.input_beam = QLineEdit()
-        self.input_beam.setPlaceholderText("Steps for Beam Search")
-        self.layout.addWidget(self.input_beam, 8, 1)
 
         self.button_execute = QPushButton("Execute search")
         self.button_execute.clicked.connect(self.execute)
@@ -110,25 +113,22 @@ class App(QWidget): # creates the containing interface with possible options for
         Step 5: search algorithm finds the best combination of visited psu's
         Step 6: #fml
 
-        ? How to do constraints ? How to order? How to have a good objective function? 
+        ? How to do constraints ? How to order? How to have a good objective function?
 
         """
-        if(self.algorithm_chosen == 3):
-            parallelsteps = self.input_parallel.text()
-            if parallesteps <= 0:
-                print("Please input a valid value")
-        else if(self.algorithm_chosen == 4):
-            temperature = self.input_temp.text()
-        else if(self.algorithm_chosen == 5):
-             beamsteps = self.input_beam.text()
-         else:
 
-
-
-
-
-
+        if self.algorithm_chosen > 2:
+            user_input = self.getValue()
+            print(user_input)
+            if int(user_input) <= 0:
+                win = ErrorMessage()
+                win.exec_()
         print("Click" + str(self.algorithm_chosen))
+
+    def getValue(self):
+        i, okPressed = QInputDialog.getInt(self, "Get integer","Provide necessary value:", 28, 0, 100, 1)
+        if okPressed:
+            return i
 
     def quit(self):
         """
