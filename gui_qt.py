@@ -54,7 +54,7 @@ class App(QWidget): # creates the containing interface with possible options for
             self.buttongroup.addButton(self.radiobutton, val)
             self.layout.addWidget(self.radiobutton, 3 + val, 0)
 
-        #input parallel hill Climbing
+        #input number of parallel hill Climbing searches to run
         self.input_parallel = QLineEdit()
         self.input_parallel.setPlaceholderText("Number of Parallel Searches to Run")
         self.layout.addWidget(self.input_parallel, 6, 1)
@@ -80,12 +80,40 @@ class App(QWidget): # creates the containing interface with possible options for
     def execute(self):
         """
         Supposed to: pass on the value for algorithm_chosen, warehouse description
-        and order
-        At the time: only prints out Click and algorithm_chosen (integer)
+        and order, values for search functions as needed (e.g., temperature for
+        Simmulated Annealing)
+        At the time: only prints out "Click" and algorithm_chosen (integer)
+
         To do:
+
+        GUI
+        redo value input for search algorithms -> validity method
+        execute method -> which algorithm is choosen
+        new method: check for validity of input
+
+        GUI passes on information to execute ->
+        Functionality
+        read in text files ; how to represent text file:
+        PSU: dictionary: key = psu; value = items in psu 
+        Warehouse: list = items
+        First Check: warehouse content to see if warehouse has wanted items
+
         Check if input valid, if not open window saying "Try again"
         """
-        temperature = self.input_temp.text()
+        if(self.algorithm_chosen == 3):
+            parallelsteps = self.input_parallel.text()
+            if parallesteps <= 0:
+                print("Please input a valid value")
+        else if(self.algorithm_chosen == 4):
+            temperature = self.input_temp.text()
+        else if(self.algorithm_chosen == 5):
+             beamsteps = self.input_beam.text()
+         else:
+
+
+
+
+
         if(temperature):
             print(temperature)
         print("Click" + str(self.algorithm_chosen))
