@@ -108,7 +108,9 @@ class App(QWidget): # creates the containing interface with possible options for
         Step 3: check if items of order list are in warehouse
         Step 4: go through psu's and pull out the ones that have a item that is wanted (Preprocessing), create dictionary that has the psu with the items
         Step 5: search algorithm finds the best combination of visited psu's
-        Step 6: 
+        Step 6: #fml
+
+
         """
         if(self.algorithm_chosen == 3):
             parallelsteps = self.input_parallel.text()
