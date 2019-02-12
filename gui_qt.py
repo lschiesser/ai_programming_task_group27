@@ -5,18 +5,19 @@ class App(QWidget): # creates the containing interface with possible options for
     algorithms = [ #names the variable ("algorithm") that indicates type of search used later in code in suceeding methods
     ("Hill Climbing", 1),
     ("First Choice Hill Climbing", 2),
-    ("Random Restart or Parallel Hill Climbing", 3),
+    ("Parallel Hill Climbing", 3),
     ("Simulated Annealing", 4),
     ("Local Beam Search", 5)] #defines strings which will appear as options for user
     algorithm_chosen = 0 #initializes app without a search type being chosen
-    def __init__(self): #
+    def __init__(self): # sets up GUI window and layout; this particular instance known as "self"
         QWidget.__init__(self)
-        self.setWindowTitle("Programming Task") 
+        self.setWindowTitle("Programming Task")
 
         self.layout = QGridLayout()
         self.setLayout(self.layout)
 
-        #create buttongroup to group radiobuttons together
+        #create elements (Widgets) and specifying label and location
+
         self.label_warehouse = QLabel()
         self.label_warehouse.setText("Pick data to set up warehouse")
         self.layout.addWidget(self.label_warehouse, 0, 0)
@@ -41,20 +42,32 @@ class App(QWidget): # creates the containing interface with possible options for
         self.label_orderFile.setText("Please choose a file")
         self.layout.addWidget(self.label_orderFile, 3, 0)
 
+        #create buttongroup to group radio buttons together to ensure all options/unintended options aren't chosen
         self.buttongroup = QButtonGroup()
         self.buttongroup.buttonClicked[int].connect(self.on_button_clicked)
 
         #create for every possible search algorithm a radiobutton and add it to
-        #the created buttongroup
+        #the previously created button group (line 46)
         for txt, val in self.algorithms:
             self.radiobutton = QRadioButton(txt)
             self.radiobutton.algorithm = val
             self.buttongroup.addButton(self.radiobutton, val)
             self.layout.addWidget(self.radiobutton, 3 + val, 0)
 
+        #input parallel hill Climbing
+        self.input_parallel = QLineEdit()
+        self.input_parallel.setPlaceholderText("Number of Parallel Searches to Run")
+        self.layout.addWidget(self.input_parallel, 6, 1)
+
+        #for Simulated Annealing option, allows user input for temperatures in process
         self.input_temp = QLineEdit()
         self.input_temp.setPlaceholderText("Value for Temperature")
         self.layout.addWidget(self.input_temp, 7, 1)
+
+        #for Local Beam Search, allows user input to specify number of steps in process
+        self.input_beam = QLineEdit()
+        self.input_beam.setPlaceholderText("Steps for Beam Search")
+        self.layout.addWidget(self.input_beam, 8, 1)
 
         self.button_execute = QPushButton("Execute search")
         self.button_execute.clicked.connect(self.execute)
@@ -69,6 +82,8 @@ class App(QWidget): # creates the containing interface with possible options for
         Supposed to: pass on the value for algorithm_chosen, warehouse description
         and order
         At the time: only prints out Click and algorithm_chosen (integer)
+        To do:
+        Check if input valid, if not open window saying "Try again"
         """
         temperature = self.input_temp.text()
         if(temperature):
