@@ -1,17 +1,17 @@
 import sys
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import * #this will be the GUI package on which the GUI for the project is built
 
-class App(QWidget):
-    algorithms = [
+class App(QWidget): # creates the containing interface with possible options for the app user
+    algorithms = [ #names the variable ("algorithm") that indicates type of search used later in code in suceeding methods
     ("Hill Climbing", 1),
     ("First Choice Hill Climbing", 2),
     ("Random Restart or Parallel Hill Climbing", 3),
     ("Simulated Annealing", 4),
-    ("Local Beam Search", 5)]
-    algorithm_chosen = 0
-    def __init__(self):
+    ("Local Beam Search", 5)] #defines strings which will appear as options for user
+    algorithm_chosen = 0 #initializes app without a search type being chosen
+    def __init__(self): #
         QWidget.__init__(self)
-        self.setWindowTitle("Programming Task")
+        self.setWindowTitle("Programming Task") 
 
         self.layout = QGridLayout()
         self.setLayout(self.layout)
