@@ -94,7 +94,7 @@ class App(QWidget): # creates the containing interface with possible options for
         GUI passes on information to execute ->
         Functionality
         read in text files ; how to represent text file:
-        PSU: dictionary: key = psu; value = items in psu 
+        PSU: dictionary: key = psu; value = items in psu
         Warehouse: list = items
         First Check: warehouse content to see if warehouse has wanted items
 
@@ -114,8 +114,7 @@ class App(QWidget): # creates the containing interface with possible options for
 
 
 
-        if(temperature):
-            print(temperature)
+        
         print("Click" + str(self.algorithm_chosen))
 
     def quit(self):
