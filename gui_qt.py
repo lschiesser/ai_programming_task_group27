@@ -110,7 +110,8 @@ class App(QWidget): # creates the containing interface with possible options for
         Step 5: search algorithm finds the best combination of visited psu's
         Step 6: #fml
 
-        ? How to do constraints ? 
+        ? How to do constraints ? How to order? How to have a good objective function? 
+
         """
         if(self.algorithm_chosen == 3):
             parallelsteps = self.input_parallel.text()
