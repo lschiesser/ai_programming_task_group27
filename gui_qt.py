@@ -35,7 +35,7 @@ class App(QWidget): # creates the containing interface with possible options for
         self.layout.addWidget(self.label_order, 2, 0)
 
         self.button_orderFile = QPushButton("Choose order file")
-        self.orderFile = self.button_orderFile.clicked.connect(self.pickWarehouseFile)
+        self.orderFile = self.button_orderFile.clicked.connect(self.pickOrderFile)
         self.layout.addWidget(self.button_orderFile, 3, 1)
 
         self.label_orderFile = QLabel()
@@ -130,7 +130,14 @@ class App(QWidget): # creates the containing interface with possible options for
                 print(self.algorithm_chosen)
 
     def pickWarehouseFile(self):
-        return self.openFileNameDialog()
+        ware = self.openFileNameDialog()
+        self.label_warehouseFile.setText(ware)
+        return ware
+
+    def pickOrderFile(self):
+        order = self.openFileNameDialog()
+        self.label_orderFile.setText(order)
+        return order
 
     def openFileNameDialog(self):
         options = QFileDialog.Options()
