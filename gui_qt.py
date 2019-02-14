@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import * #this will be the GUI package on which the GUI for the project is built
+from Functionality import preprocess_info
 
 class App(QWidget): # creates the containing interface with possible options for the app user
     algorithms = [ #names the variable ("algorithm") that indicates type of search used later in code in suceeding methods
@@ -103,8 +104,9 @@ class App(QWidget): # creates the containing interface with possible options for
 
         if self.algorithm_chosen > 2:
             user_input = self.getValue()
-            print(user_input)
-        print("Click" + str(self.algorithm_chosen))
+            preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, user_input)
+        else:
+            preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, 0)
 
     def getValue(self):
         i, okPressed = QInputDialog.getInt(self, "Get integer","Provide necessary value:", 28, 0, 100, 1)
