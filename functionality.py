@@ -2,6 +2,8 @@
 
 # first method: receives all information from gui and begins with Preprocessing
 def preprocess_info(warehouse, order, algorithm, value_alg):
+    # method that takes warehouse file and converts it into variable
+    # method that takes order file and converts it into variable
     # preprocess information
     # after preprocessing pass neighborhood on to search algorithm
     if algorithm == 1:
