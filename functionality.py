@@ -16,11 +16,12 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     order = orderIn(orderFile)
     # method that takes warehouse file and converts it into variable
     inventPSU = inventory(warehouseFile)
+    # builds up intersection between order and list of PSUs
     fulfilledPSU = intersection(order, inventPSU)
-    print(fulfilledPSU)
+    #control: print(fulfilledPSU)
+    #grades PSU based on how many items from order are contained
     gradedPSUs = gradePSU(fulfilledPSU)
-    print(gradedPSUs)
-    # preprocess information
+    #control: print(gradedPSUs)
     # after preprocessing pass neighborhood on to search algorithm
     if algorithm == 1:
         print(a)
