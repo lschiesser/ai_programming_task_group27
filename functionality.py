@@ -7,34 +7,46 @@
 """
 
 # first method: receives all information from gui and begins with Preprocessing
-def preprocess_info(warehousepath, orderpath, algorithm, value_alg):
+def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     # method that takes warehouse file and converts it into variable
-
+    orderFile = "C:/Users/lukas/Documents/order11.txt"
+    warehouseFile = "C:/Users/lukas/Documents/problem1.txt"
+    print(orderFile)
+    orderIn(orderFile)
+    inventory(warehouseFile)
     # method that takes order file and converts it into variable
-    order = orderIn(orderpath)
+
     # preprocess information
     # after preprocessing pass neighborhood on to search algorithm
-    if algorithm == 1:
+    #if (algorithm == 1):
         #hill Climbing
-    elif algorithm == 2:
+    #elif algorithm == 2:
         #first choice hill Climbing
-    elif algorithm == 3:
+    #elif algorithm == 3:
         #parallel hill Climbing
-    elif algorithm == 4:
+    #elif algorithm == 4:
         #simulated Annealing
-    elif algorithm == 5:
+    #elif algorithm == 5:
         #local beam search
 
     return
 
-def orderIn(orderpath):
-    with open(orderpath, 'r') as o:
-        order = o.split(" ")
+def orderIn(orderFile):
+    print(orderFile)
+    with open(orderFile, 'r') as o:
+        order = o.read().split(" ")
         return order
+        print(order)
 
 
-def inventory(warehousepath):
-    with open(warehousepath, 'r') as v:
+def inventory(warehouseFile):
+    available = []
+    with open(str(warehouseFile), 'r') as v:
         for i, line in v:
-            if i>1:
-                available =
+            if i>2:
+                s = line.split(" ")
+                available.append(s)
+        return available
+        print(available)
+
+preprocess_info("","",0,1)

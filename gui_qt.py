@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import * #this will be the GUI package on which the GUI for the project is built
-from Functionality import preprocess_info
+from functionality import preprocess_info
 
 class App(QWidget): # creates the containing interface with possible options for the app user
     algorithms = [ #names the variable ("algorithm") that indicates type of search used later in code in suceeding methods
