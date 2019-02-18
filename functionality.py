@@ -35,18 +35,19 @@ def orderIn(orderFile):
     print(orderFile)
     with open(orderFile, 'r') as o:
         order = o.read().split(" ")
-        return order
         print(order)
+        return order
+
 
 
 def inventory(warehouseFile):
     available = []
-    with open(str(warehouseFile), 'r') as v:
-        for i, line in v:
-            if i>2:
-                s = line.split(" ")
-                available.append(s)
-        return available
+    with open(warehouseFile, 'r') as v:
+        for line in v:
+            s = line.strip("\n").split(" ")
+            available.append(s)
         print(available)
+        return available
+
 
 preprocess_info("","",0,1)
