@@ -72,34 +72,6 @@ class App(QWidget): # creates the containing interface with possible options for
         Simmulated Annealing)
         At the time: only prints out "Click" and algorithm_chosen (integer)
 
-        To do:
-
-        GUI
-        redo value input for search algorithms -> validity method
-        execute method -> which algorithm is choosen
-        new method: check for validity of input
-
-        GUI passes on information to execute ->
-        Functionality
-        read in text files ; how to represent text file:
-        PSU: dictionary: key = psu; value = item in psu
-        Warehouse: list = items
-        First Check: warehouse content to see if warehouse has wanted items
-        Do Search
-        Print number of psu's used and which psu with which items exactly
-
-        ? How do we represent neighborhood and how do we ensure that the search just looks where the needed items are s
-        ? Preprocessing: allow only psu's in the neighborhood that have at least one item of the items we want
-
-        Step 1: order files
-        Step 2: warehouse file
-        Step 3: check if items of order list are in warehouse
-        Step 4: go through psu's and pull out the ones that have a item that is wanted (Preprocessing), create dictionary that has the psu with the items
-        Step 5: search algorithm finds the best combination of visited psu's
-        Step 6: #fml
-
-        ? How to do constraints ? How to order? How to have a good objective function?
-
         """
 
         if self.algorithm_chosen > 2:

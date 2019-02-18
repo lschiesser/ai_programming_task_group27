@@ -1,8 +1,6 @@
 # imports
-
+import search_algorithms as sa
 """
-1. Definition of universe --> variable list consisting of items in the order list
-
 
 """
 
