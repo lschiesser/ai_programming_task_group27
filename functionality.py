@@ -7,8 +7,8 @@ import search_algorithms as sa
 # first method: receives all information from gui and begins with Preprocessing
 def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
 
-    orderFile = "C:/Users/lukas/Documents/order12.txt"
-    warehouseFile = "C:/Users/lukas/Documents/problem1.txt"
+    #control: orderFile = "C:/Users/lukas/Documents/order12.txt"
+    #control: warehouseFile = "C:/Users/lukas/Documents/problem1.txt"
     #print(orderFile)
     # method that takes order file and converts it into variable
     order = orderIn(orderFile)
@@ -97,4 +97,4 @@ def gradePSU(listPSU):
         graded.append(len(list))
     return graded
 
-preprocess_info("","",0,1)
+#preprocess_info("","",0,1)
