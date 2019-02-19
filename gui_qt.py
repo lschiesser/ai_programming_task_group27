@@ -69,11 +69,10 @@ class App(QWidget): # creates the containing interface with possible options for
 
     def execute(self):
         """
-        Supposed to: pass on the value for algorithm_chosen, warehouse description
-        and order, values for search functions as needed (e.g., temperature for
-        Simmulated Annealing)
-        At the time: only prints out "Click" and algorithm_chosen (integer)
-
+        Method:
+            pass on the value for algorithm_chosen, warehouse description
+            and order, values for search functions as needed (e.g., temperature for
+            Simmulated Annealing)
         """
         if self.algorithm_chosen > 2:
             user_input = self.getValue()
@@ -82,6 +81,11 @@ class App(QWidget): # creates the containing interface with possible options for
             preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, 0)
 
     def getValue(self):
+        """
+        Method:
+            opens up Input Dialog that requests additional information if Simulated Annealing,
+            Prallel Hill Climbing or Local Beam Search is chosen and stores info in variable
+        """
         i, okPressed = QInputDialog.getInt(self, "Get integer","Provide necessary value:", 28, 0, 100, 1)
         if okPressed:
             return i
@@ -97,7 +101,8 @@ class App(QWidget): # creates the containing interface with possible options for
         Input:
             self - object itself
             id - id of the clicked button
-        checks which of the radiobutton is checked and stores it in a variable
+        Method:
+            checks which of the radiobutton is checked and stores it in a variable
         """
         for button in self.buttongroup.buttons():
             if button is self.buttongroup.button(id):
@@ -105,18 +110,29 @@ class App(QWidget): # creates the containing interface with possible options for
                 print(self.algorithm_chosen)
 
     def pickWarehouseFile(self):
+        """
+        calls on file picker method to choose warehouse file and store path in
+        a variable
+        """
         ware = self.openFileNameDialog()
         self.label_warehouseFile.setText(ware)
         self.warehouseFile = ware
         return ware
 
     def pickOrderFile(self):
+        """
+        calls on file picker method to choose order file and store path in
+        a variable
+        """
         order = self.openFileNameDialog()
         self.label_orderFile.setText(order)
         self.orderFile = order
         return order
 
     def openFileNameDialog(self):
+        """
+        opens up a file picker dialog
+        """
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self,"Choose Files", "","All Files (*);;Python Files (*.py)", options=options)
