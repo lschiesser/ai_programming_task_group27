@@ -22,15 +22,15 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     #control: print(gradedPSUs)
     # after preprocessing pass neighborhood on to search algorithm
     if algorithm == 1:
-        print(a)
+        print("a")
     elif algorithm == 2:
-        print(b)
+        print("b")
     elif algorithm == 3:
-        print(c)
+        print("c")
     elif algorithm == 4:
-        print(d)
+        print("d")
     elif algorithm == 5:
-        print(e)
+        print("e")
 
     return
 

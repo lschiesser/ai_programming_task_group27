@@ -10,6 +10,8 @@ class App(QWidget): # creates the containing interface with possible options for
     ("Simulated Annealing", 4),
     ("Local Beam Search", 5)] #defines strings which will appear as options for user
     algorithm_chosen = 0 #initializes app without a search type being chosen
+    warehouseFile = ""
+    orderFile = ""
     def __init__(self): # sets up GUI window and layout; this particular instance known as "self"
         QWidget.__init__(self)
         self.setWindowTitle("Programming Task")
@@ -24,7 +26,7 @@ class App(QWidget): # creates the containing interface with possible options for
         self.layout.addWidget(self.label_warehouse, 0, 0)
 
         self.button_warehouseFile = QPushButton("Choose warehouse file")
-        self.warehouseFile = self.button_warehouseFile.clicked.connect(self.pickWarehouseFile)
+        self.button_warehouseFile.clicked.connect(self.pickWarehouseFile)
         self.layout.addWidget(self.button_warehouseFile, 1, 1)
 
         self.label_warehouseFile = QLabel()
@@ -36,7 +38,7 @@ class App(QWidget): # creates the containing interface with possible options for
         self.layout.addWidget(self.label_order, 2, 0)
 
         self.button_orderFile = QPushButton("Choose order file")
-        self.orderFile = self.button_orderFile.clicked.connect(self.pickOrderFile)
+        self.button_orderFile.clicked.connect(self.pickOrderFile)
         self.layout.addWidget(self.button_orderFile, 3, 1)
 
         self.label_orderFile = QLabel()
@@ -73,7 +75,6 @@ class App(QWidget): # creates the containing interface with possible options for
         At the time: only prints out "Click" and algorithm_chosen (integer)
 
         """
-
         if self.algorithm_chosen > 2:
             user_input = self.getValue()
             preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, user_input)
@@ -106,17 +107,19 @@ class App(QWidget): # creates the containing interface with possible options for
     def pickWarehouseFile(self):
         ware = self.openFileNameDialog()
         self.label_warehouseFile.setText(ware)
+        self.warehouseFile = ware
         return ware
 
     def pickOrderFile(self):
         order = self.openFileNameDialog()
         self.label_orderFile.setText(order)
+        self.orderFile = order
         return order
 
     def openFileNameDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"Choose Files", "","All Files (*);;Python Files (*.py)", options=options)
         if fileName:
             print(fileName)
             return fileName
