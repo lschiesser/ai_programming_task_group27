@@ -4,6 +4,9 @@ import search_algorithms as sa
 
 """
 
+orderPSUs = {}
+
+
 # first method: receives all information from gui and begins with Preprocessing
 def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
 
@@ -21,18 +24,36 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     gradedPSUs = gradePSU(fulfilledPSU)
     #control: print(gradedPSUs)
     # after preprocessing pass neighborhood on to search algorithm
+    current = executeAlgo(gradedPSUs, value_alg, algorithm)
+    checkCompletion(current, inventPSU, gradedPSUs, order, value_alg, algorithm)
+
+def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm):
+    newOrder = [x for x in order if x not in neighborhood[current]]
+    orderPSUs[current] = neighborhood.pop(current)
+    gradedN.pop(current)
+    if len(newOrder) != 0:
+        newcurrent = executeAlgo(gradedN, value_alg, algorithm)
+        checkCompletion(newcurrent, neighborhood, gradedN, newOrder, value_alg, algorithm)
+    else:
+        printResult()
+
+def printResult():
+    print(len(orderPSUs))
+    for x in orderPSUs:
+        print(x)
+        print(orderPSUs[x])
+
+def executeAlgo(gradedPSUs, value_algorithm, algorithm):
     if algorithm == 1:
-        print("a")
+        return "a"
     elif algorithm == 2:
-        print("b")
+        return "b"
     elif algorithm == 3:
-        print("c")
+        return "c"
     elif algorithm == 4:
-        print("d")
+        return sa.simaneal(gradedPSUs, value_algorithm)
     elif algorithm == 5:
         print("e")
-
-    return
 
 def orderIn(orderFile):
     """
