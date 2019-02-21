@@ -1,6 +1,6 @@
 # imports
 import random
-
+import math
 
 def simaneal(neighborhood, t):
     print("sa")
@@ -16,6 +16,6 @@ def simaneal(neighborhood, t):
         print(delta)
         if delta > 0:
             current = next
-        elif delta/t >= 0.6:
+        elif math.exp(delta)/t >= random.randrange(0, 1):
             current = next
         t = t - 1

@@ -153,7 +153,7 @@ class App(QWidget): # creates the containing interface with possible options for
             return fileName
 
 
-class ShowResults(QWidget):
+class ShowResults(QScrollArea):
     def __init__(self):
         global oPSUs
 
@@ -161,23 +161,25 @@ class ShowResults(QWidget):
         super().__init__()
         self.setWindowTitle("Result")
 
-        self.layout2 = QGridLayout()
-        self.setLayout(self.layout2)
+        self.widget = QWidget()
+        self.layout2 = QVBoxLayout(self.widget)
 
         self.numberPSUS = QLabel()
         self.numberPSUS.setText("PSUs needed:" + str(len(oPSUs)))
-        self.layout2.addWidget(self.numberPSUS, 0, 0)
-        pos = 1
+        self.layout2.addWidget(self.numberPSUS)
+        
         for x in oPSUs:
             self.labelPSU = QLabel()
             str1 = ', '.join(oPSUs[x])
             self.labelPSU.setText(str(x) + ": " + str1)
-            self.layout2.addWidget(self.labelPSU, pos, 0)
-            pos += 1
+            self.layout2.addWidget(self.labelPSU)
 
         self.button_ok = QPushButton("Ok")
         self.button_ok.clicked.connect(self.close)
-        self.layout2.addWidget(self.button_ok, pos + 1, 0)
+        self.layout2.addWidget(self.button_ok)
+
+        self.setWidget(self.widget)
+        self.setWidgetResizable(True)
 
 
 app = QApplication(sys.argv)
