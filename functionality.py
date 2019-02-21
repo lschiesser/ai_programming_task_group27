@@ -25,15 +25,19 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     #control: print(gradedPSUs)
     # after preprocessing pass neighborhood on to search algorithm
     current = executeAlgo(gradedPSUs, value_alg, algorithm)
-    checkCompletion(current, inventPSU, gradedPSUs, order, value_alg, algorithm)
+    checkCompletion(current, fulfilledPSU, gradedPSUs, order, value_alg, algorithm)
 
 def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm):
     newOrder = [x for x in order if x not in neighborhood[current]]
-    orderPSUs[current] = neighborhood.pop(current)
+    n = neighborhood.pop(current)
+    if len(n) != 0:
+        orderPSUs[current] = n
     gradedN.pop(current)
     if len(newOrder) != 0:
-        newcurrent = executeAlgo(gradedN, value_alg, algorithm)
-        checkCompletion(newcurrent, neighborhood, gradedN, newOrder, value_alg, algorithm)
+        newfullfilled = intersection(newOrder, neighborhood)
+        newGraded = gradePSU(newfullfilled)
+        newcurrent = executeAlgo(newGraded, value_alg, algorithm)
+        checkCompletion(newcurrent, newfullfilled, newGraded, newOrder, value_alg, algorithm)
     else:
         printResult()
 
@@ -87,6 +91,8 @@ def inventory(warehouseFile):
             available.append(s)
         available.pop(0)
         available.pop(0)
+        for nestedlist in available:
+            nestedlist.remove('')
         return available
 
 def intersection(lst1, lst2):
