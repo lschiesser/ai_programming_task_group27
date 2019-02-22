@@ -164,7 +164,7 @@ class ShowResults(QScrollArea):
         self.layout2 = QVBoxLayout(self.widget)
 
         self.numberPSUS = QLabel()
-        self.numberPSUS.setText("PSUs needed:" + str(len(oPSUs)))
+        self.numberPSUS.setText("eligible PSUs:" + str(len(oPSUs)))
         self.layout2.addWidget(self.numberPSUS)
 
         for x in oPSUs:
