@@ -62,8 +62,6 @@ def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm)
         newGraded = gradePSU(newfullfilled)
         newcurrent = executeAlgo(newGraded, value_alg, algorithm)
         checkCompletion(newcurrent, newfullfilled, newGraded, newOrder, value_alg, algorithm)
-    # if search is complete then print results by opening new window displaying how many
-    # PSUs are needed, then list their identifier and content
 
 
 def executeAlgo(gradedPSUs, value_algorithm, algorithm):
