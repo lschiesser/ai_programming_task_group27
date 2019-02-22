@@ -25,7 +25,10 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     #control: print(gradedPSUs)
     # after preprocessing pass neighborhood on to search algorithm
     orderPSUs = {}
+    # first execution of search algorithm which returns index of chosen PSU
     current = executeAlgo(gradedPSUs, value_alg, algorithm)
+    # method checks if search is completed (every item in order is in PSU)
+    # if items are left in order, then search algorithm is executed again
     checkCompletion(current, fulfilledPSU, gradedPSUs, order, value_alg, algorithm)
     print(len(orderPSUs))
     return orderPSUs
@@ -47,7 +50,12 @@ def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm)
 
     """
     global orderPSUs
+    # Simulated Annealing, Hill CLimbing and First Choice Hill Climbing all return
+    # only one index of one chosen PSU during one search run
+    # Therefore, we only have to compare the chosen PSU with the order and not a list
     if type(current) == int:
+        # newOrder has only the items that are not contained in found PSU
+        # new Order is then used to rerun the search algorithm
         newOrder = [x for x in order if x not in neighborhood[current]]
         n = neighborhood.pop(current)
         # if len of found PSU (n) is not 0 then add it to the dictionary
@@ -55,6 +63,9 @@ def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm)
         if len(n) != 0:
             orderPSUs[current] = n
         gradedN.pop(current)
+    # Local Beam Search and Parallel Hill Climbing return list of chosen PSUs
+    # we have to through the list to find out if there are items that are in the order,
+    # but not in the chosen PSUs
     else:
         newOrder = []
         for item in current:
