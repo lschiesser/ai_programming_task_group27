@@ -76,9 +76,9 @@ def executeAlgo(gradedPSUs, value_algorithm, algorithm):
         executes search algorithm and returns value that is returned by algorithm chosen
     """
     if algorithm == 1:
-        return "a"
+        return sa.hillclimbing(gradedPSUs)
     elif algorithm == 2:
-        return "b"
+        return sa.firstchoicehc(gradedPSUs)
     elif algorithm == 3:
         return "c"
     elif algorithm == 4:
