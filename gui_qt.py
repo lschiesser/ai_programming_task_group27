@@ -10,7 +10,7 @@ class App(QWidget): # creates the containing interface with possible options for
     algorithms = [
     ("Hill Climbing", 1),
     ("First Choice Hill Climbing", 2),
-    ("Parallel Hill Climbing", 3),
+    ("Random Restart Hill Climbing", 3),
     ("Simulated Annealing", 4),
     ("Local Beam Search", 5)] #defines strings which will appear as options for user
     algorithm_chosen = 0 #initializes app without a search type being chosen
