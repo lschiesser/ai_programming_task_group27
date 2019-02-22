@@ -6,7 +6,7 @@ def simaneal(neighborhood, t):
     """
     Input:
         neighborhood: graded PSUs
-        t: temperature
+        t: temperature from user input (getValue)
     Method:
         performs simulated annealing
     """
@@ -33,19 +33,27 @@ def simaneal(neighborhood, t):
         t = t - 1
 
 def hillclimbing(gradedPSUs):
+    
+    #algorithm for hill climbing search, takes gradedPSUs
     neighbor = 0
+     #defines current selected neighbor
     current = random.randint(0, len(gradedPSUs) - 1)
     if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
         neighbor = current + 1
     else:
         neighbor = current - 1
-
+  """
+  compares selected neighbor and next indexed neighbors to either side; 
+        whichever next indexed neighbor's value is greater than the other neighbor
+        (optimizes the solution) is selected as new neighbor
+   """
     while gradedPSUs[current] < gradedPSUs[neighbor]:
         current = neighbor
         if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
             neighbor = current + 1
         else:
             neighbor = current - 1
+            #continues until neighbor values are no longer greater than current
     return current
 
 
@@ -62,6 +70,8 @@ def firstchoicehc(gradedPSUs):
             current = current + 1
         elif gradedPSUs[current - 1] > gradedPSUs[current]:
             current = current - 1
+            #chooses new current based on which neighbor first improves the maximazation function
+            #until function can no longer be improved (neighbors are no longer larger)
     return current
 
 def localbeam(graded, k):
@@ -78,3 +88,36 @@ def localbeam(graded, k):
         returnlist.append(seq)
     print("a")
     return returnlist
+
+
+
+def randrestart(gradedPSUs,n):
+#algorithm for random restart search, takes graded PSUs and user input from getValue
+
+    results = [] #collects maximization neighbor for each run of hill climbing
+    n_best = sorted(results) #sorts results list numerically
+    best = n_best[-1] 
+    #defines the last (largest) neighbor index from PSUs after performing n hill climbs
+
+    for _in range(n):
+    #runs a hill climbing search n times, according to user input
+
+      current = random.randint(0, len(gradedPSUs) - 1) 
+      if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
+          neighbor = current + 1
+      else:
+          neighbor = current - 1
+      #defines indices of current and neighbor values in PSUs list 
+      
+      while gradedPSUs[current] < gradedPSUs[neighbor]:
+          current = neighbor
+          if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
+              neighbor = current + 1
+          else:
+              neighbor = current - 1
+      results.append(current)
+      #compares neighbors until a better (larger) neighbor can't be found, and 
+      #returns the largest neighbor to the results list  
+    
+return best
+    
