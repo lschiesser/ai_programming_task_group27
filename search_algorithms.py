@@ -47,3 +47,18 @@ def firstchoicehc(gradedPSUs):
         elif gradedPSUs[current - 1] > gradedPSUs[current]:
             current = current - 1
     return current
+
+def localbeam(graded, k):
+    graded_OI = []
+    x = 0
+    for sublist in graded:
+        graded_OI.append([[sublist], x])
+        x = x + 1
+    ordered = sorted(graded_OI, reverse=True)
+    k_best = ordered[:k]
+    returnlist = []
+    for subl in k_best:
+        _, seq = subl
+        returnlist.append(seq)
+    print("a")
+    return returnlist

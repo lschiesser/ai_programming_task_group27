@@ -47,14 +47,25 @@ def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm)
 
     """
     global orderPSUs
-    # delete every item that is in neighborhood[current] from order and save this in new variable newOrder
-    newOrder = [x for x in order if x not in neighborhood[current]]
-    n = neighborhood.pop(current)
-    # if len of found PSU (n) is not 0 then add it to the dictionary
-    # key of dictionary is number (identifier) of PSU and entry is the list n
-    if len(n) != 0:
-        orderPSUs[current] = n
-    gradedN.pop(current)
+    if type(current) == int:
+        newOrder = [x for x in order if x not in neighborhood[current]]
+        n = neighborhood.pop(current)
+        # if len of found PSU (n) is not 0 then add it to the dictionary
+        # key of dictionary is number (identifier) of PSU and entry is the list n
+        if len(n) != 0:
+            orderPSUs[current] = n
+        gradedN.pop(current)
+    else:
+        newOrder = []
+        for item in current:
+            newOrder_b = [x for x in order if x not in neighborhood[item]]
+            n = neighborhood.pop(item)
+            gradedN.pop(item)
+            if len(n) != 0:
+                orderPSUs[item] = n
+            print("zwischen: " + str(newOrder_b))
+        newOrder = [x for x in newOrder_b if x not in order]
+        print("newOrder: " + str(newOrder))
     # as long as the length of newOrder is not 0 regrade PSUs, perform search algorithm again
     # and check again if search is complete
     if len(newOrder) != 0:
@@ -82,7 +93,7 @@ def executeAlgo(gradedPSUs, value_algorithm, algorithm):
     elif algorithm == 4:
         return sa.simaneal(gradedPSUs, value_algorithm)
     elif algorithm == 5:
-        print("e")
+        return sa.localbeam(gradedPSUs, value_algorithm)
 
 def orderIn(orderFile):
     """
