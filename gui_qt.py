@@ -2,8 +2,12 @@ import sys
 from PyQt5.QtWidgets import * #this will be the GUI package on which the GUI for the project is built
 from functionality import preprocess_info
 
+oPSUs = {}
+
+
 class App(QWidget): # creates the containing interface with possible options for the app user
-    algorithms = [ #names the variable ("algorithm") that indicates type of search used later in code in suceeding methods
+    # names the variable ("algorithm") that indicates type of search used later in code in succeeding methods
+    algorithms = [
     ("Hill Climbing", 1),
     ("First Choice Hill Climbing", 2),
     ("Parallel Hill Climbing", 3),
@@ -74,11 +78,18 @@ class App(QWidget): # creates the containing interface with possible options for
             and order, values for search functions as needed (e.g., temperature for
             Simmulated Annealing)
         """
+        global oPSUs
+        oPSUs = {}
         if self.algorithm_chosen > 2:
             user_input = self.getValue()
-            preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, user_input)
+            oPSUs = preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, user_input)
         else:
-            preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, 0)
+            oPSUs = preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, 0)
+        self.showResults()
+
+    def showResults(self):
+        self.resultDialog = ShowResults()
+        self.resultDialog.show()
 
     def getValue(self):
         """
@@ -140,6 +151,33 @@ class App(QWidget): # creates the containing interface with possible options for
             print(fileName)
             return fileName
 
+
+class ShowResults(QScrollArea):
+    def __init__(self):
+        global oPSUs
+
+        super().__init__()
+        self.setWindowTitle("Result")
+
+        self.widget = QWidget()
+        self.layout2 = QVBoxLayout(self.widget)
+
+        self.numberPSUS = QLabel()
+        self.numberPSUS.setText("eligible PSUs:" + str(len(oPSUs)))
+        self.layout2.addWidget(self.numberPSUS)
+
+        for x in oPSUs:
+            self.labelPSU = QLabel()
+            str1 = ', '.join(oPSUs[x])
+            self.labelPSU.setText(str(x) + ": " + str1)
+            self.layout2.addWidget(self.labelPSU)
+
+        self.button_ok = QPushButton("Ok")
+        self.button_ok.clicked.connect(self.close)
+        self.layout2.addWidget(self.button_ok)
+
+        self.setWidget(self.widget)
+        self.setWidgetResizable(True)
 
 
 app = QApplication(sys.argv)

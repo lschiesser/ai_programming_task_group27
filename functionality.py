@@ -4,9 +4,12 @@ import search_algorithms as sa
 
 """
 
+orderPSUs = {}
+
+
 # first method: receives all information from gui and begins with Preprocessing
 def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
-
+    global orderPSUs
     #control: orderFile = "C:/Users/lukas/Documents/order12.txt"
     #control: warehouseFile = "C:/Users/lukas/Documents/problem1.txt"
     #print(orderFile)
@@ -21,18 +24,67 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     gradedPSUs = gradePSU(fulfilledPSU)
     #control: print(gradedPSUs)
     # after preprocessing pass neighborhood on to search algorithm
+    orderPSUs = {}
+    current = executeAlgo(gradedPSUs, value_alg, algorithm)
+    checkCompletion(current, fulfilledPSU, gradedPSUs, order, value_alg, algorithm)
+    print(len(orderPSUs))
+    return orderPSUs
+
+def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm):
+    """
+    Input:
+        current: determines current value that is returned by search algorithm
+        neighborhood: list of all PSUs with their content in string form that are contained in order
+        gradedN: graded PSUs
+        order: order file
+        value_alg: additional value for search algorithm
+        algorithm: determines which algorithm is used
+    Method:
+        takes current value returned by search algorithm and compares content of
+        found PSU and order and deletes every item from order that is contained by PSU
+        found PSU is added to a dictionary: key is the PSU number (identifier) and
+        the entry is the list of items that are contained in the PSU
+
+    """
+    global orderPSUs
+    # delete every item that is in neighborhood[current] from order and save this in new variable newOrder
+    newOrder = [x for x in order if x not in neighborhood[current]]
+    n = neighborhood.pop(current)
+    # if len of found PSU (n) is not 0 then add it to the dictionary
+    # key of dictionary is number (identifier) of PSU and entry is the list n
+    if len(n) != 0:
+        orderPSUs[current] = n
+    gradedN.pop(current)
+    # as long as the length of newOrder is not 0 regrade PSUs, perform search algorithm again
+    # and check again if search is complete
+    if len(newOrder) != 0:
+        newfullfilled = intersection(newOrder, neighborhood)
+        newGraded = gradePSU(newfullfilled)
+        newcurrent = executeAlgo(newGraded, value_alg, algorithm)
+        checkCompletion(newcurrent, newfullfilled, newGraded, newOrder, value_alg, algorithm)
+    # if search is complete then print results by opening new window displaying how many
+    # PSUs are needed, then list their identifier and content
+
+
+def executeAlgo(gradedPSUs, value_algorithm, algorithm):
+    """
+    Input:
+        gradedPSUs: nested list of graded or regraded PSUs
+        value_algorithm: additional value for certain algorithms
+        algorithm: determines which algorithm is chosen
+    Method:
+        executes search algorithm and returns value that is returned by algorithm chosen
+    """
     if algorithm == 1:
-        print("a")
+        return sa.hillclimbing(gradedPSUs)
     elif algorithm == 2:
-        print("b")
+        return sa.firstchoicehc(gradedPSUs)
     elif algorithm == 3:
-        print("c")
+        return "c"
     elif algorithm == 4:
-        print("d")
+        return sa.simaneal(gradedPSUs, value_algorithm)
     elif algorithm == 5:
         print("e")
-
-    return
 
 def orderIn(orderFile):
     """
@@ -66,6 +118,8 @@ def inventory(warehouseFile):
             available.append(s)
         available.pop(0)
         available.pop(0)
+        for nestedlist in available:
+            nestedlist.remove('')
         return available
 
 def intersection(lst1, lst2):
