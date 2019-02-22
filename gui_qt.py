@@ -84,7 +84,6 @@ class App(QWidget): # creates the containing interface with possible options for
             oPSUs = preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, user_input)
         else:
             oPSUs = preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, 0)
-        print(len(oPSUs))
         self.showResults()
 
     def showResults(self):
@@ -167,7 +166,7 @@ class ShowResults(QScrollArea):
         self.numberPSUS = QLabel()
         self.numberPSUS.setText("PSUs needed:" + str(len(oPSUs)))
         self.layout2.addWidget(self.numberPSUS)
-        
+
         for x in oPSUs:
             self.labelPSU = QLabel()
             str1 = ', '.join(oPSUs[x])

@@ -26,6 +26,7 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     # after preprocessing pass neighborhood on to search algorithm
     current = executeAlgo(gradedPSUs, value_alg, algorithm)
     checkCompletion(current, fulfilledPSU, gradedPSUs, order, value_alg, algorithm)
+    return orderPSUs
 
 def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm):
     """
