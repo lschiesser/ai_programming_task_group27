@@ -3,17 +3,33 @@ import random
 import math
 
 def simaneal(neighborhood, t):
+    """
+    Input:
+        neighborhood: graded PSUs
+        t: temperature
+    Method:
+        performs simulated annealing
+    """
+    #choose a random current
     current = random.randint(0, len(neighborhood) - 1)
+    # while temperatur t bigger or equal 0 perform search
     while t >= 0:
+        # if t equals 0 then return index of PSU currently chosen
         if t == 0:
             return current
-            print(neighborhood[current])
+        # choose a random neighbor of current
         next = random.randint(0, len(neighborhood) - 1)
+        # calculate difference between the current PSU and the chosen neighbor
         delta = neighborhood[next] - neighborhood[current]
+        # if difference is bigger than 0, then the chosen neighbor is the new current
+        # PSU chosen
         if delta > 0:
             current = next
-        elif math.exp(delta)/t >= random.randrange(0, 1):
+        # if the exponential of delta/t is bigger than a random probabaility,
+        # then the new current PSU is the neighbor
+        elif math.exp(delta/t) >= random.randrange(0, 1):
             current = next
+        # lower temperature linearly
         t = t - 1
 
 def hillclimbing(gradedPSUs):
