@@ -148,7 +148,6 @@ class App(QWidget): # creates the containing interface with possible options for
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self,"Choose Files", "","All Files (*);;Python Files (*.py)", options=options)
         if fileName:
-            print(fileName)
             return fileName
 
 
