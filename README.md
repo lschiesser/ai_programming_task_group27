@@ -5,4 +5,3 @@ We decided to represent the search space as a nested list as follows:
 In the PSUs now there are only elements that are also in the order.
 2. Now the PSUs are graded based on how many items remain after the first processing step.
 3. This list is now passed on to the next video.
-#### I don't know what to write the next \#fml
