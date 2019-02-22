@@ -100,7 +100,7 @@ def executeAlgo(gradedPSUs, value_algorithm, algorithm):
     elif algorithm == 2:
         return sa.firstchoicehc(gradedPSUs)
     elif algorithm == 3:
-        return "c"
+        return sa.randrestart(gradedPSUs, value_algorithm)
     elif algorithm == 4:
         return sa.simaneal(gradedPSUs, value_algorithm)
     elif algorithm == 5:

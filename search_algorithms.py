@@ -33,7 +33,7 @@ def simaneal(neighborhood, t):
         t = t - 1
 
 def hillclimbing(gradedPSUs):
-    
+
     #algorithm for hill climbing search, takes gradedPSUs
     neighbor = 0
      #defines current selected neighbor
@@ -42,11 +42,11 @@ def hillclimbing(gradedPSUs):
         neighbor = current + 1
     else:
         neighbor = current - 1
-  """
-  compares selected neighbor and next indexed neighbors to either side; 
-        whichever next indexed neighbor's value is greater than the other neighbor
-        (optimizes the solution) is selected as new neighbor
-   """
+        """
+            compares selected neighbor and next indexed neighbors to either side;
+            whichever next indexed neighbor's value is greater than the other neighbor
+            (optimizes the solution) is selected as new neighbor
+        """
     while gradedPSUs[current] < gradedPSUs[neighbor]:
         current = neighbor
         if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
@@ -95,20 +95,19 @@ def randrestart(gradedPSUs,n):
 #algorithm for random restart search, takes graded PSUs and user input from getValue
 
     results = [] #collects maximization neighbor for each run of hill climbing
-    n_best = sorted(results) #sorts results list numerically
-    best = n_best[-1] 
+
     #defines the last (largest) neighbor index from PSUs after performing n hill climbs
 
-    for _in range(n):
+    for _ in range(n):
     #runs a hill climbing search n times, according to user input
 
-      current = random.randint(0, len(gradedPSUs) - 1) 
+      current = random.randint(0, len(gradedPSUs) - 1)
       if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
           neighbor = current + 1
       else:
           neighbor = current - 1
-      #defines indices of current and neighbor values in PSUs list 
-      
+      #defines indices of current and neighbor values in PSUs list
+
       while gradedPSUs[current] < gradedPSUs[neighbor]:
           current = neighbor
           if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
@@ -116,8 +115,8 @@ def randrestart(gradedPSUs,n):
           else:
               neighbor = current - 1
       results.append(current)
-      #compares neighbors until a better (larger) neighbor can't be found, and 
-      #returns the largest neighbor to the results list  
-    
-return best
-    
+      #compares neighbors until a better (larger) neighbor can't be found, and
+      #returns the largest neighbor to the results list
+      n_best = sorted(results) #sorts results list numerically
+      best = n_best[len(n_best)-1]
+      return best
