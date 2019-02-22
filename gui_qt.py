@@ -79,6 +79,7 @@ class App(QWidget): # creates the containing interface with possible options for
             Simmulated Annealing)
         """
         global oPSUs
+        oPSUs = {}
         if self.algorithm_chosen > 2:
             user_input = self.getValue()
             oPSUs = preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, user_input)
@@ -87,7 +88,6 @@ class App(QWidget): # creates the containing interface with possible options for
         self.showResults()
 
     def showResults(self):
-        print("c")
         self.resultDialog = ShowResults()
         self.resultDialog.show()
 
@@ -156,7 +156,6 @@ class ShowResults(QScrollArea):
     def __init__(self):
         global oPSUs
 
-        print(len(oPSUs))
         super().__init__()
         self.setWindowTitle("Result")
 
