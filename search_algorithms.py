@@ -33,48 +33,64 @@ def simaneal(neighborhood, t):
         t = t - 1
 
 def hillclimbing(gradedPSUs):
-
-    #algorithm for hill climbing search, takes gradedPSUs
+    """
+    Input:
+        graded PSUs as state space
+    Method:
+        performs hillclimbing
+    """
+    # choose random PSU as start spate = current   
     neighbor = 0
-     #defines current selected neighbor
     current = random.randint(0, len(gradedPSUs) - 1)
+    # compare PSU's on either side of current to evaluate which one has more order items/ is the better choice to optimize the solution
+    # define better choice as neighbor of current 
     if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
         neighbor = current + 1
     else:
         neighbor = current - 1
-        """
-            compares selected neighbor and next indexed neighbors to either side;
-            whichever next indexed neighbor's value is greater than the other neighbor
-            (optimizes the solution) is selected as new neighbor
-        """
+    # as long as the neighbor is a better solution than the current, the neighbor becomes the new current    
     while gradedPSUs[current] < gradedPSUs[neighbor]:
         current = neighbor
+        # evaluate new neighbor -> redundant?! I think we could take that part out 
         if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
             neighbor = current + 1
         else:
             neighbor = current - 1
-            #continues until neighbor values are no longer greater than current
+    # return current that is locally optimal (no higher neighbor found) to functionality as part of the end solution 
     return current
 
 
 def firstchoicehc(gradedPSUs):
+    """
+    Input:
+        graded PSUs as state space
+    Method:
+        performs first choice hillclimbing
+    """
+    # same as hillclimbing
     neighbor = 0
     current = random.randint(0, len(gradedPSUs) - 1)
     if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
         neighbor = current + 1
     else:
         neighbor = current - 1
-
+    # as long as the neighbor is a better choice/has more order items than the current
     while gradedPSUs[current] < gradedPSUs[neighbor]:
+        # chooses new current based on which neighbor first improves the maximazation function (has more order items)
         if gradedPSUs[current + 1] > gradedPSUs[current]:
             current = current + 1
         elif gradedPSUs[current - 1] > gradedPSUs[current]:
             current = current - 1
-            #chooses new current based on which neighbor first improves the maximazation function
-            #until function can no longer be improved (neighbors are no longer larger)
     return current
 
 def localbeam(graded, k):
+    """
+    Input: 
+        graded = graded PSU's
+        k = number of states that are selected (User Input)
+    Method:
+        performs local beam search
+    """
     graded_OI = []
     x = 0
     for sublist in graded:
@@ -92,31 +108,36 @@ def localbeam(graded, k):
 
 
 def randrestart(gradedPSUs,n):
-#algorithm for random restart search, takes graded PSUs and user input from getValue
-
-    results = [] #collects maximization neighbor for each run of hill climbing
-
-    #defines the last (largest) neighbor index from PSUs after performing n hill climbs
-
+    """
+    Input:
+        graded PSU's
+        n = (User Input from getValue)
+    Method: 
+        performs random restart hillclimbing 
+    """
+    #collects maximization neighbor for each run of hill climbing
+    results = [] 
+    
+    # runs a hill climbing search n times, according to user input
     for _ in range(n):
-    #runs a hill climbing search n times, according to user input
-
+      # same as hillclimbing
       current = random.randint(0, len(gradedPSUs) - 1)
       if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
           neighbor = current + 1
       else:
           neighbor = current - 1
-      #defines indices of current and neighbor values in PSUs list
-
+     
+      # compares neighbors until a better (larger) neighbor can't be found
       while gradedPSUs[current] < gradedPSUs[neighbor]:
           current = neighbor
           if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
               neighbor = current + 1
           else:
               neighbor = current - 1
+      # returns the largest neighbor to the results list  
       results.append(current)
-      #compares neighbors until a better (larger) neighbor can't be found, and
-      #returns the largest neighbor to the results list
-      n_best = sorted(results) #sorts results list numerically
+      
+      # sorts results list numerically
+      n_best = sorted(results) 
       best = n_best[len(n_best)-1]
       return best
