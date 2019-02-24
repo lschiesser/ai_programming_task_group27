@@ -5,18 +5,22 @@ from functionality import preprocess_info
 oPSUs = {}
 
 
-class App(QWidget): # creates the containing interface with possible options for the app user
+class App(QWidget):
+    # creates the containing interface with possible options for the app user
     # names the variable ("algorithm") that indicates type of search used later in code in succeeding methods
+    #defines strings which will appear as options for user
     algorithms = [
     ("Hill Climbing", 1),
     ("First Choice Hill Climbing", 2),
     ("Random Restart Hill Climbing", 3),
     ("Simulated Annealing", 4),
-    ("Local Beam Search", 5)] #defines strings which will appear as options for user
-    algorithm_chosen = 0 #initializes app without a search type being chosen
+    ("Local Beam Search", 5)]
+    #initializes app without a search type being chosen
+    algorithm_chosen = 0
     warehouseFile = ""
     orderFile = ""
-    def __init__(self): # sets up GUI window and layout; this particular instance known as "self"
+    # sets up GUI window and layout; this particular instance known as "self"
+    def __init__(self):
         QWidget.__init__(self)
         self.setWindowTitle("Programming Task")
 
@@ -152,6 +156,10 @@ class App(QWidget): # creates the containing interface with possible options for
 
 
 class ShowResults(QScrollArea):
+    """
+    This class presents the results of the search. It displays the number of eligible PSUs
+    Additionaly, it lists every single PSU with their identifier and the content relevant for the order
+    """
     def __init__(self):
         global oPSUs
 
