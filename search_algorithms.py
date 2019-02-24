@@ -83,6 +83,7 @@ def firstchoicehc(gradedPSUs):
             current = current - 1
     return current
 
+
 def localbeam(graded, k):
     """
     Input: 
@@ -91,18 +92,23 @@ def localbeam(graded, k):
     Method:
         performs local beam search
     """
+    # create list of graded PSU's stored together with their original index 
     graded_OI = []
     x = 0
     for sublist in graded:
         graded_OI.append([[sublist], x])
         x = x + 1
+    # create a ordered list of the graded PSU's with their original index such that they are in reversed order (lowest number to biggest) 
     ordered = sorted(graded_OI, reverse=True)
+    # copy the last k PSU's (with their graded number and original index) from ordered into k_best
+    # since those PSU's have the highest number of ordered items stored in them 
     k_best = ordered[:k]
     returnlist = []
+    # for every PSU list in k_best only append the corresponding index to the returnlist
     for subl in k_best:
         _, seq = subl
         returnlist.append(seq)
-    print("a")
+    # return the list with the indices of the k best PSU's to functionality as the solution 
     return returnlist
 
 
@@ -115,8 +121,9 @@ def randrestart(gradedPSUs,n):
     Method: 
         performs random restart hillclimbing 
     """
-    #collects maximization neighbor for each run of hill climbing
+    # collects maximization neighbor for each run of hill climbing
     results = [] 
+    # create list of graded PSU's stored together with their original index 
     graded_OI = []
     x = 0
     for sublist in gradedPSUs:
@@ -138,10 +145,11 @@ def randrestart(gradedPSUs,n):
               neighbor = current + 1
           else:
               neighbor = current - 1
-      # returns the largest neighbor to the results list  
+      # if the currently largest PSU is found, we put it's graded number and index (= current) to the results list  
       results.append(graded_OI[current])
       
-      # sorts results list numerically
+    # sorts results list with n best PSU's numerically
     n_best = sorted(results) 
+    # return only the index of the last PSU in the sorted result list to functionality as a partial solution 
     _, best = n_best[len(n_best)-1]
     return best
