@@ -7,7 +7,8 @@ Furthermore it calls (?) the chosen search algorithm in search_algorithms and re
 This solution list is then given to GUI which produces a window with the finished list of PSU's that are needed for the order.
 #### Representation of the search space
 We decided to represent the search space as a nested list as follows:
-1. Build up the intersection between the inventory (all PSUs and their content) and the order.
-In the PSUs now there are only elements that are also in the order.
-2. Now the PSUs are graded based on how many items remain after the first processing step.
-3. This list is now passed on to the next video.
+1. The list represents all PSUs in the warehouse, every nested list represents one PSU and has all of its content as elements.
+2. We build up the intersection between the inventory (all PSUs and their content) and the order.
+Now, in the PSUs there are only elements that are also in the order.
+3. Now the PSUs are graded based on how many items remain after the first processing step.
+4. This list is now passed on to the next steps, the preprocessing of the warehouse description ends with this step.

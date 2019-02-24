@@ -10,7 +10,7 @@ class App(QWidget): # creates the containing interface with possible options for
     algorithms = [
     ("Hill Climbing", 1),
     ("First Choice Hill Climbing", 2),
-    ("Parallel Hill Climbing", 3),
+    ("Random Restart Hill Climbing", 3),
     ("Simulated Annealing", 4),
     ("Local Beam Search", 5)] #defines strings which will appear as options for user
     algorithm_chosen = 0 #initializes app without a search type being chosen
@@ -148,7 +148,6 @@ class App(QWidget): # creates the containing interface with possible options for
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self,"Choose Files", "","All Files (*);;Python Files (*.py)", options=options)
         if fileName:
-            print(fileName)
             return fileName
 
 
