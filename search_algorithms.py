@@ -11,14 +11,14 @@ def simaneal(neighborhood, t):
         performs simulated annealing
     """
     #choose a random current
-    current = random.randint(0, len(neighborhood) - 1)
+    current = random.randint(1, len(neighborhood) - 1)
     # while temperatur t bigger or equal 0 perform search
     while t >= 0:
         # if t equals 0 then return index of PSU currently chosen
         if t == 0:
             return current
         # choose a random neighbor of current
-        next = random.randint(0, len(neighborhood) - 1)
+        next = random.randint(1, len(neighborhood) - 1)
         # calculate difference between the current PSU and the chosen neighbor
         delta = neighborhood[next] - neighborhood[current]
         # if difference is bigger than 0, then the chosen neighbor is the new current
@@ -41,7 +41,7 @@ def hillclimbing(gradedPSUs):
     """
     # choose random PSU as start spate = current   
     neighbor = 0
-    current = random.randint(0, len(gradedPSUs) - 1)
+    current = random.randint(1, len(gradedPSUs) - 1)
     # compare PSU's on either side of current to evaluate which one has more order items/ is the better choice to optimize the solution
     # define better choice as neighbor of current 
     if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
@@ -51,7 +51,7 @@ def hillclimbing(gradedPSUs):
     # as long as the neighbor is a better solution than the current, the neighbor becomes the new current    
     while gradedPSUs[current] < gradedPSUs[neighbor]:
         current = neighbor
-        # evaluate new neighbor -> redundant?! I think we could take that part out 
+        # evaluate new neighbor 
         if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
             neighbor = current + 1
         else:
@@ -69,7 +69,7 @@ def firstchoicehc(gradedPSUs):
     """
     # same as hillclimbing
     neighbor = 0
-    current = random.randint(0, len(gradedPSUs) - 1)
+    current = random.randint(1, len(gradedPSUs) - 1)
     if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
         neighbor = current + 1
     else:
@@ -125,7 +125,7 @@ def randrestart(gradedPSUs,n):
     # runs a hill climbing search n times, according to user input
     for _ in range(n):
       # same as hillclimbing
-      current = random.randint(0, len(gradedPSUs) - 1)
+      current = random.randint(1, len(gradedPSUs) - 1)
       if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
           neighbor = current + 1
       else:
