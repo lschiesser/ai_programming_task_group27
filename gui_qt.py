@@ -125,7 +125,6 @@ class App(QWidget):
         for button in self.buttongroup.buttons():
             if button is self.buttongroup.button(id):
                 self.algorithm_chosen = button.algorithm
-                print(self.algorithm_chosen)
 
     def pickWarehouseFile(self):
         """
