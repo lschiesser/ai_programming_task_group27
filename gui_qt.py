@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import * 
+from PyQt5.QtWidgets import *
 from functionality import preprocess_info
 
 oPSUs = {}
@@ -84,11 +84,15 @@ class App(QWidget):
         """
         global oPSUs
         oPSUs = {}
+        # if the chosen algorithm requires an additional value (so every algorithm except
+        # First Choice & Hill Climbing) get this value and then pass on every value to the preprocessing method
         if self.algorithm_chosen > 2:
             user_input = self.getValue()
             oPSUs = preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, user_input)
+        # pass on every value to the preprocessing method
         else:
             oPSUs = preprocess_info(self.warehouseFile, self.orderFile, self.algorithm_chosen, 0)
+        # after preprocessing and search is done, open window to display results
         self.showResults()
 
     def showResults(self):
@@ -102,7 +106,7 @@ class App(QWidget):
         """
         Method:
             opens up Input Dialog that requests additional information if Simulated Annealing,
-            Prallel Hill Climbing or Local Beam Search is chosen and stores info in variable
+            Random Restart Hill Climbing, Simulated Annealing or Local Beam Search is chosen and stores info in variable
         """
         i, okPressed = QInputDialog.getInt(self, "Get integer","Provide necessary value:", 28, 0, 100, 1)
         if okPressed:
