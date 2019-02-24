@@ -30,7 +30,6 @@ def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     # method checks if search is completed (every item in order is in PSU)
     # if items are left in order, then search algorithm is executed again
     checkCompletion(current, fulfilledPSU, gradedPSUs, order, value_alg, algorithm)
-    print(len(orderPSUs))
     return orderPSUs
 
 def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm):
@@ -50,7 +49,7 @@ def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm)
 
     """
     global orderPSUs
-    # Simulated Annealing, Hill CLimbing and First Choice Hill Climbing all return
+    # Simulated Annealing, Hill CLimbing and First Choice and Random Restart Hill Climbing all return
     # only one index of one chosen PSU during one search run
     # Therefore, we only have to compare the chosen PSU with the order and not a list
     if type(current) == int:
@@ -63,20 +62,19 @@ def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm)
         if len(n) != 0:
             orderPSUs[current] = n
         gradedN.pop(current)
-    # Local Beam Search and Parallel Hill Climbing return list of chosen PSUs
-    # we have to through the list to find out if there are items that are in the order,
-    # but not in the chosen PSUs
+    # Local Beam Search returns a list of chosen PSUs we have to go through the list
+    # to find out if there are items that are in the order, but not in the chosen PSUs
     else:
         newOrder = []
+        # go through every single item in the returned list and figure out if there are
+        # still items that are not in PSU and therefore still in the original order
         for item in current:
             newOrder_b = [x for x in order if x not in neighborhood[item]]
             n = neighborhood.pop(item)
             gradedN.pop(item)
             if len(n) != 0:
                 orderPSUs[item] = n
-            print("zwischen: " + str(newOrder_b))
         newOrder = [x for x in newOrder_b if x not in order]
-        print("newOrder: " + str(newOrder))
     # as long as the length of newOrder is not 0 regrade PSUs, perform search algorithm again
     # and check again if search is complete
     if len(newOrder) != 0:
@@ -117,7 +115,6 @@ def orderIn(orderFile):
     print(orderFile)
     with open(orderFile, 'r') as o:
         order = o.read().split(" ")
-        #print(order)
         return order
 
 
@@ -170,5 +167,3 @@ def gradePSU(listPSU):
     for list in listPSU:
         graded.append(len(list))
     return graded
-
-#preprocess_info("","",0,1)
