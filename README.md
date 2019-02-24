@@ -12,3 +12,8 @@ We decided to represent the search space as a nested list as follows:
 Now, in the PSUs there are only elements that are also in the order.
 3. Now the PSUs are graded based on how many items remain after the first processing step.
 4. This list is now passed on to the next steps, the preprocessing of the warehouse description ends with this step.
+#### Packages used and their version
+* PyQt5-sip version: 4.19.13
+* Python 3.6.5 :: Anaconda, Inc.
+* math
+* random
