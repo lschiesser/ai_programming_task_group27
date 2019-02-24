@@ -10,19 +10,14 @@ orderPSUs = {}
 # first method: receives all information from gui and begins with Preprocessing
 def preprocess_info(warehouseFile,orderFile, algorithm, value_alg):
     global orderPSUs
-    #control: orderFile = "C:/Users/lukas/Documents/order12.txt"
-    #control: warehouseFile = "C:/Users/lukas/Documents/problem1.txt"
-    #print(orderFile)
     # method that takes order file and converts it into variable
     order = orderIn(orderFile)
     # method that takes warehouse file and converts it into variable
     inventPSU = inventory(warehouseFile)
     # builds up intersection between order and list of PSUs
     fulfilledPSU = intersection(order, inventPSU)
-    #control: print(fulfilledPSU)
     #grades PSU based on how many items from order are contained
     gradedPSUs = gradePSU(fulfilledPSU)
-    #control: print(gradedPSUs)
     # after preprocessing pass neighborhood on to search algorithm
     orderPSUs = {}
     # first execution of search algorithm which returns index of chosen PSU
@@ -112,7 +107,6 @@ def orderIn(orderFile):
         Reads in the order file and splits the items by whitespace to create a list
         to compare PSUs to
     """
-    print(orderFile)
     with open(orderFile, 'r') as o:
         order = o.read().split(" ")
         return order
