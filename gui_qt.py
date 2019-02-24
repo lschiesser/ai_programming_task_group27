@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import * #this will be the GUI package on which the GUI for the project is built
+from PyQt5.QtWidgets import * 
 from functionality import preprocess_info
 
 oPSUs = {}
