@@ -117,7 +117,11 @@ def randrestart(gradedPSUs,n):
     """
     #collects maximization neighbor for each run of hill climbing
     results = [] 
-    
+    graded_OI = []
+    x = 0
+    for sublist in gradedPSUs:
+        graded_OI.append([[sublist], x])
+        x = x + 1
     # runs a hill climbing search n times, according to user input
     for _ in range(n):
       # same as hillclimbing
@@ -135,9 +139,9 @@ def randrestart(gradedPSUs,n):
           else:
               neighbor = current - 1
       # returns the largest neighbor to the results list  
-      results.append(current)
+      results.append(graded_OI[current])
       
       # sorts results list numerically
-      n_best = sorted(results) 
-      best = n_best[len(n_best)-1]
-      return best
+    n_best = sorted(results) 
+    _, best = n_best[len(n_best)-1]
+    return best
