@@ -92,6 +92,9 @@ class App(QWidget):
         self.showResults()
 
     def showResults(self):
+        """
+        this prepares the window that will show the results and opens this window
+        """
         self.resultDialog = ShowResults()
         self.resultDialog.show()
 
