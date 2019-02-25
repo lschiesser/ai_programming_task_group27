@@ -11,14 +11,14 @@ def simaneal(neighborhood, t):
         performs simulated annealing
     """
     #choose a random current
-    current = random.randint(1, len(neighborhood) - 1)
+    current = random.randint(1, len(neighborhood) - 2)
     # while temperatur t bigger or equal 0 perform search
     while t >= 0:
         # if t equals 0 then return index of PSU currently chosen
         if t == 0:
             return current
         # choose a random neighbor of current
-        next = random.randint(1, len(neighborhood) - 1)
+        next = random.randint(1, len(neighborhood) - 2)
         # calculate difference between the current PSU and the chosen neighbor
         delta = neighborhood[next] - neighborhood[current]
         # if difference is bigger than 0, then the chosen neighbor is the new current
@@ -41,7 +41,7 @@ def hillclimbing(gradedPSUs):
     """
     # choose random PSU as start spate = current   
     neighbor = 0
-    current = random.randint(1, len(gradedPSUs) - 1)
+    current = random.randint(1, len(gradedPSUs) - 2)
     # compare PSU's on either side of current to evaluate which one has more order items/ is the better choice to optimize the solution
     # define better choice as neighbor of current 
     if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
@@ -69,7 +69,7 @@ def firstchoicehc(gradedPSUs):
     """
     # same as hillclimbing
     neighbor = 0
-    current = random.randint(1, len(gradedPSUs) - 1)
+    current = random.randint(1, len(gradedPSUs) - 2)
     if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
         neighbor = current + 1
     else:
@@ -132,7 +132,7 @@ def randrestart(gradedPSUs,n):
     # runs a hill climbing search n times, according to user input
     for _ in range(n):
       # same as hillclimbing
-      current = random.randint(1, len(gradedPSUs) - 1)
+      current = random.randint(1, len(gradedPSUs) - 2)
       if gradedPSUs[current + 1] > gradedPSUs[current - 1]:
           neighbor = current + 1
       else:
