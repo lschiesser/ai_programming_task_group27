@@ -98,9 +98,9 @@ def localbeam(graded, k):
     for sublist in graded:
         graded_OI.append([[sublist], x])
         x = x + 1
-    # create a ordered list of the graded PSU's with their original index such that they are in reversed order (lowest number to biggest) 
+    # create a ordered list of the graded PSU's with their original index such that they are in reversed order (lowest biggest to lowest) 
     ordered = sorted(graded_OI, reverse=True)
-    # copy the last k PSU's (with their graded number and original index) from ordered into k_best
+    # copy the first k PSUs (with their graded number and original index) from ordered into k_best
     # since those PSU's have the highest number of ordered items stored in them 
     k_best = ordered[:k]
     returnlist = []
