@@ -14,7 +14,7 @@ Now, in the PSUs there are only elements that are also in the order.
 3. Now the PSUs are graded based on how many items remain after the first processing step.
 4. This list is now passed on to the next steps, the preprocessing of the warehouse description ends with this step.
 #### Search Process
-We decided to check after every execution of a search algorithm if the order is fulfilled by deleting every item that is in the PSU and the order and adding the PSU and its identifier to a dictionary. If the new order file is emtpy, then we can return the dictionary with the PSUs that fullfill the order. If not, we rerun the search algorithm until the order is fulfilled. 
+We decided to check after every execution of a search algorithm if the order is fulfilled by deleting every item that is in the PSU and the order and adding the PSU and its identifier to a dictionary. If the new order file is empty, then we can return the dictionary with the PSUs that fulfill the order. If not, we rerun the search algorithm until the order is fulfilled. 
 #### Packages used and their version
 * PyQt5-sip version: 4.19.13
 * Python 3.6.5 :: Anaconda, Inc.
