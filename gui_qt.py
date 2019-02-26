@@ -1,6 +1,10 @@
 import sys
 from PyQt5.QtWidgets import *
 from functionality import preprocess_info
+"""
+Group 27
+Members: Iehshia Hickey-Williams, Sarah Jähnichen, Berit Reise, Lukas Schießer
+"""
 
 oPSUs = {}
 
