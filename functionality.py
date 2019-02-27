@@ -70,7 +70,7 @@ def checkCompletion(current, neighborhood, gradedN, order, value_alg, algorithm)
             gradedN.pop(item)
             if len(n) != 0:
                 orderPSUs[item] = n
-        newOrder = [x for x in newOrder_b if x not in order]
+        newOrder = [x for x in newOrder_b if x in order]
     # as long as the length of newOrder is not 0 regrade PSUs, perform search algorithm again
     # and check again if search is complete
     if len(newOrder) != 0:
