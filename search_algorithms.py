@@ -3,7 +3,7 @@ import random
 import math
 """
 Group 27
-Members: Iehshia Hickey-Williams, Sarah Jähnichen, Berit Reise, Lukas Schießer
+Members: Ieshia Hickey-Williams, Sarah Jähnichen, Berit Reise, Lukas Schießer
 """
 
 def simaneal(gradedPSUs, t):

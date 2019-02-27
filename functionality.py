@@ -2,7 +2,7 @@
 import search_algorithms as sa
 """
 Group 27
-Members: Iehshia Hickey-Williams, Sarah Jähnichen, Berit Reise, Lukas Schießer
+Members: Ieshia Hickey-Williams, Sarah Jähnichen, Berit Reise, Lukas Schießer
 """
 
 orderPSUs = {}
